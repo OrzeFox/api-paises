@@ -1,95 +1,95 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const countryList = document.getElementById("country-list");
-  const sortAscButton = document.getElementById("asc-button");
-  const descButton = document.getElementById("desc-button");
-  const searchInput = document.getElementById("search-input");
-  let sortOrder = "asc";
-  let countries = [];
+  const listaPaises = document.getElementById("lista-paises");
+  const botonOrdenAsc = document.getElementById("boton-ascendente");
+  const botonOrdenDesc = document.getElementById("boton-descendente");
+  const inputBusqueda = document.getElementById("input-busqueda");
+  let ordenamiento = "asc";
+  let paises = [];
 
-  const sortCountries = () => {
-    countries.sort((a, b) => {
-      const nameA = a.name.common.toLowerCase();
-      const nameB = b.name.common.toLowerCase();
+  const ordenarPaises = () => {
+    paises.sort((a, b) => {
+      const nombreA = a.name.common.toLowerCase();
+      const nombreB = b.name.common.toLowerCase();
 
-      if (sortOrder === "asc") {
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
+      if (ordenamiento === "asc") {
+        if (nombreA < nombreB) return -1;
+        if (nombreA > nombreB) return 1;
       } else {
-        if (nameA > nameB) return -1;
-        if (nameA < nameB) return 1;
+        if (nombreA > nombreB) return -1;
+        if (nombreA < nombreB) return 1;
       }
 
       return 0;
     });
 
-    renderCountries();
+    mostrarPaises();
   };
 
-  const renderCountries = () => {
-    const searchTerm = searchInput.value.toLowerCase().trim();
+  const mostrarPaises = () => {
+    const terminoBusqueda = inputBusqueda.value.toLowerCase().trim();
 
-    const filteredCountries = countries.filter((country) => {
-      const countryName = country.name.common.toLowerCase();
-      return countryName.includes(searchTerm);
+    const paisesFiltrados = paises.filter((pais) => {
+      const nombrePais = pais.name.common.toLowerCase();
+      return nombrePais.includes(terminoBusqueda);
     });
 
-    countryList.innerHTML = "";
+    listaPaises.innerHTML = "";
 
-    const countryElements = filteredCountries.map((country) => {
-      const { name, flags, population, region, capital } = country;
+    const elementosPais = paisesFiltrados.map((pais) => {
+      const { name, flags, population, region, capital } = pais;
 
-      const listItem = document.createElement("li");
-      const flagImg = document.createElement("img");
-      flagImg.classList.add("flag");
-      flagImg.src = flags.png;
-      flagImg.alt = `${name.common} Flag`;
+      const elementoLista = document.createElement("li");
+      const banderaImg = document.createElement("img");
+      banderaImg.classList.add("bandera");
+      banderaImg.src = flags.png;
+      banderaImg.alt = `Bandera de ${name.common}`;
 
-      const countryInfo = document.createElement("div");
-      countryInfo.classList.add("country-info");
-      const countryName = document.createElement("h3");
-      countryName.textContent = name.common;
-      const populationInfo = document.createElement("p");
-      populationInfo.innerHTML = `<strong>Population:</strong> ${population.toLocaleString()}`;
+      const infoPais = document.createElement("div");
+      infoPais.classList.add("info-pais");
+      const nombrePaisElemento = document.createElement("h3");
+      nombrePaisElemento.textContent = name.common;
+      const poblacionInfo = document.createElement("p");
+      poblacionInfo.innerHTML = `<strong>Población:</strong> ${population.toLocaleString()}`;
       const regionInfo = document.createElement("p");
-      regionInfo.innerHTML = `<strong>Region:</strong> ${region}`;
+      regionInfo.innerHTML = `<strong>Región:</strong> ${region}`;
       const capitalInfo = document.createElement("p");
       capitalInfo.innerHTML = `<strong>Capital:</strong> ${capital}`;
 
-      countryInfo.appendChild(countryName);
-      countryInfo.appendChild(populationInfo);
-      countryInfo.appendChild(regionInfo);
-      countryInfo.appendChild(capitalInfo);
+      infoPais.appendChild(nombrePaisElemento);
+      infoPais.appendChild(poblacionInfo);
+      infoPais.appendChild(regionInfo);
+      infoPais.appendChild(capitalInfo);
 
-      listItem.appendChild(flagImg);
-      listItem.appendChild(countryInfo);
+      elementoLista.appendChild(banderaImg);
+      elementoLista.appendChild(infoPais);
 
-      return listItem;
+      return elementoLista;
     });
 
-    countryElements.forEach((element) => {
-      countryList.appendChild(element);
+    elementosPais.forEach((elemento) => {
+      listaPaises.appendChild(elemento);
     });
   };
 
-  sortAscButton.addEventListener("click", () => {
-    sortOrder = "asc";
-    sortCountries();
+  botonOrdenAsc.addEventListener("click", () => {
+    ordenamiento = "asc";
+    ordenarPaises();
   });
 
-  descButton.addEventListener("click", () => {
-    sortOrder = "desc";
-    sortCountries();
+  botonOrdenDesc.addEventListener("click", () => {
+    ordenamiento = "desc";
+    ordenarPaises();
   });
 
-  searchInput.addEventListener("input", () => {
-    renderCountries();
+  inputBusqueda.addEventListener("input", () => {
+    mostrarPaises();
   });
 
   fetch("https://restcountries.com/v3.1/all")
     .then((response) => response.json())
     .then((data) => {
-      countries = data;
-      sortCountries();
+      paises = data;
+      ordenarPaises();
     })
     .catch((error) => {
       console.log("Error:", error);

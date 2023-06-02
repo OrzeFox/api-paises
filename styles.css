@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-.container {
+.contenedor {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
@@ -19,11 +19,11 @@ h1 {
   color: #fff;
 }
 
-.search-container {
+.contenedor-busqueda {
   margin-bottom: 20px;
 }
 
-#search-input {
+#input-busqueda {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -31,12 +31,12 @@ h1 {
   border: 1px solid #ccc;
 }
 
-.sort-buttons {
+.botones-orden {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.sort-buttons button {
+.botones-orden button {
   padding: 10px 20px;
   font-size: 14px;
   border-radius: 5px;
@@ -47,7 +47,7 @@ h1 {
   margin-right: 10px;
 }
 
-.sort-buttons button:last-child {
+.botones-orden button:last-child {
   margin-right: 0;
 }
 
@@ -65,24 +65,24 @@ li {
   border-radius: 5px;
 }
 
-.flag {
+.bandera {
   width: 25%;
   margin-right: 10px;
 }
 
-.country-info {
+.info-pais {
   flex-grow: 1;
 }
 
-.country-info h3 {
+.info-pais h3 {
   margin: 0;
   color: #ffd700;
 }
 
-.country-info p:nth-child(2n) {
+.info-pais p:nth-child(2n) {
   color: #36045f;
 }
 
-.country-info p:nth-child(2n + 1) {
+.info-pais p:nth-child(2n + 1) {
   color: #00bfff;
 }
